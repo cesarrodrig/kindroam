@@ -45,3 +45,6 @@ the `-f/--filename` option:
 ```
 kindroam export -f "My Clippings.txt"
 ```
+
+The created Roam pages are exported to the folder `books` in the project
+directory. They are ready to be used with the `Import` feature in Roam.
