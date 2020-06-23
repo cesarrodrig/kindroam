@@ -42,6 +42,19 @@ command. It is recommended to import all generated Roam pages before
 doing a new export because books with new highlights will be overwritten.
 
 
+### Highlight Notes
+
+Kindle offers the feature of adding notes to a highlight. Unfortunately,
+they are not distinguishable from normal highlights in `My Clippings.txt`.
+To get around this, you can mark your notes with an initial `^` so `kindroam`
+recognizes them and attaches them as a sub-block. For example, if your note is
+`This highlight is important to me.`, it needs to be `^This highlight is
+important to me.` so it can become a sub-block.
+
+When Roam imports Markdown files, all the sub-blocks are collapsed. You can
+expand them all by right-clicking the page title and selecting `Expand All`.
+
+
 ## Installation
 
 To install the command-line tool, run:
