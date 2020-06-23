@@ -39,6 +39,8 @@ class Manager:
                 for c in highlights:
                     f.write(c.to_block())
 
+                print(f"Exported {len(highlights)} highlights of {book}.")
+
         self.db['last_updated'] = datetime.datetime.now()
         self._save_db()
         print(f"Exported {num_new_highlights} new highlights.")
