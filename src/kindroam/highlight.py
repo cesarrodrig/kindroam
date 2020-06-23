@@ -10,15 +10,20 @@ class Highlight(object):
                  book: str,
                  author: str,
                  content: str,
-                 added: datetime.datetime):
+                 added: datetime.datetime,
+                 note: str = ""):
 
         self.book = book
         self.author = author
         self.content = content
         self.added = added
+        self.note = note
 
     def to_block(self):
-        return f"- {self.content}\n"
+        block = f"- {self.content}\n"
+        if self.note != "":
+            block += f"\t- {self.note}\n"
+        return block
 
 
 def load_highlights(filename: str) -> List[Highlight]:
@@ -36,6 +41,7 @@ def parse_highlights(f: IO) -> List[Highlight]:
 
     assert len(lines) % 5 == 0
     highlights = []
+    highlight = None
 
     # Every 5 lines, there is a different highlight
     for i in range(0, len(lines), 5):
@@ -58,6 +64,12 @@ def parse_highlights(f: IO) -> List[Highlight]:
 
         # The content is in one line fortunately
         content = lines[i + 3].strip()
+
+        # A ^ at the beginning indicates to be a note that should be attached
+        # to the previous highlight.
+        if content.startswith("^") and highlight is not None:
+            highlight.note = content[1:]
+            continue
 
         highlight = Highlight(book, author, content, added)
         highlights.append(highlight)
