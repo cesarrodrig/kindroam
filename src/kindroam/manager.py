@@ -30,6 +30,7 @@ class Manager:
         highlights_by_book = group_by_book(filtered_hls)
 
         num_new_highlights = 0
+        exported_prints = []
         for book, highlights in highlights_by_book.items():
 
             book_filename = os.path.join(books_dir, f"{book}.md")
@@ -42,7 +43,11 @@ class Manager:
                 for c in highlights:
                     f.write(c.to_block())
 
-                print(f"Exported {len(highlights)} highlights of {book}.")
+                exported_prints.append(
+                    f"Exported {len(highlights)} highlights of {book}.")
+
+        for p in exported_prints:
+            print(p)
 
         self.db['last_updated'] = datetime.datetime.now()
         self._save_db()
