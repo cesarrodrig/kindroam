@@ -31,11 +31,11 @@ class Manager:
 
         num_new_highlights = 0
         for book, highlights in highlights_by_book.items():
-            num_new_highlights += len(highlights)
 
             book_filename = os.path.join(books_dir, f"{book}.md")
             with open(book_filename, 'w') as f:
 
+                num_new_highlights += len(highlights)
                 for c in highlights:
                     f.write(c.to_block())
 
