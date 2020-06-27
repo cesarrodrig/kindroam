@@ -33,6 +33,9 @@ class Manager:
         for book, highlights in highlights_by_book.items():
 
             book_filename = os.path.join(books_dir, f"{book}.md")
+            if os.path.isfile(book_filename):
+                self._warn_book_exists(book)
+
             with open(book_filename, 'w') as f:
 
                 num_new_highlights += len(highlights)
@@ -44,6 +47,13 @@ class Manager:
         self.db['last_updated'] = datetime.datetime.now()
         self._save_db()
         print(f"Exported {num_new_highlights} new highlights.")
+
+    def _warn_book_exists(self, book: str):
+        prompt = f"'{book}' has new highlights but the file already exists. "
+        prompt += "Make sure it has alaready been imported into Roam before "
+        prompt += "proceeding. This action will overwrite the existing file.\n"
+        prompt += "\n> Press Enter to continue\n"
+        input(prompt)
 
     def _load_db(self) -> None:
 
