@@ -35,7 +35,7 @@ def cli():
 
 @cli.command()
 @click.option('--books-dir',
-              default='books',
+              default=KINDROAM_BOOK_DIR,
               help="Directory where the Roam Pages are saved.")
 def clean(books_dir):
     """Delete all Markdown files (.md) from the books directory."""
