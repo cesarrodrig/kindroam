@@ -50,7 +50,9 @@ class Manager:
     def __init__(self, db_filename: str, books_dir: str = 'books') -> None:
         self.db = DB.load(db_filename, books_dir)
 
-    def sync_highlights(self, highlights: List[HighlightType]) -> None:
+    def sync_highlights(self,
+                        highlights: List[HighlightType],
+                        ignore_warnings: bool) -> None:
         if not highlights:
             print("No highlights to sync.")
             return
@@ -66,7 +68,7 @@ class Manager:
         for book, highlights in highlights_by_book.items():
 
             book_filename = os.path.join(self.db.books_dir, f"{book}.md")
-            if os.path.isfile(book_filename):
+            if os.path.isfile(book_filename) and not ignore_warnings:
                 self._warn_book_exists(book)
 
             with open(book_filename, 'w') as f:
