@@ -52,7 +52,10 @@ def clean(books_dir):
 @click.option('--books-dir',
               default=KINDROAM_BOOK_DIR,
               help="Directory where the Roam Pages are saved.")
-def export(filename, books_dir):
+@click.option('--ignore-warnings',
+              is_flag=True,
+              help="Ignore overwrite warnings.")
+def export(filename, books_dir, ignore_warnings):
     """Load highlights from a `My Clippings.txt` file and export them
     as Roam pages to the books directory.
 
@@ -73,7 +76,7 @@ def export(filename, books_dir):
 
     manager = Manager(KINDROAM_DB_FILENAME, books_dir)
     highlights = load_highlights(filename)
-    manager.sync_highlights(highlights)
+    manager.sync_highlights(highlights, ignore_warnings)
 
 
 if __name__ == '__main__':
