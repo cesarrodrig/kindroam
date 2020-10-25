@@ -65,9 +65,9 @@ def parse_highlights(f: IO) -> List[Highlight]:
         # The content is in one line fortunately
         content = lines[i + 3].strip()
 
-        # A ^ at the beginning indicates to be a note that should be attached
+        # A + at the beginning indicates to be a note that should be attached
         # to the previous highlight.
-        if content.startswith("^") and highlight is not None:
+        if content.startswith("+") and highlight is not None:
             highlight.note = content[1:]
             continue
 
